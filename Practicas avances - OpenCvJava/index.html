@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenCV Tratamiento de la Imagen</title>
+
+    <!--Bootstrapp CSS-->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OpenCV Con JavaScript</a>
+        <h1 class="col-md-10">Ejemplo 1 - Carga Basica de Imagen</h1>
+    </nav>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <nav class="col-md-2 d-done d-md-block bg-lighet sidebar">
+                <div class="sidebar-sticky">
+                    <ul id="menu" class="nav flex.column">
+                        <li class="nav-item"><a class="nav-link" href="../CargaBasicaImagen/index.html">Ejemplo 1. Carga Básica de Imagen</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../CargaBasicaWebcam/index.html">Ejemplo 2. Carga Básica de WebCam</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../CargaSeleccionFiltro/index.html">Ejemplo 3. Carg aSeleccion Filtro</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-40">
+            <div class="row">
+                <div class="col">
+                    <div id="status" class="alert alert-primary" role="start">
+                        <img src="img/ajax-loader.gif" /> Cargando OpenCV...
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <img id="imgSrc" src="img/gray.png" alt="Sin imagen" class="small">
+                </div>
+                <div class="col">
+                    <canvas id="canvasOutput" class="small" height="300px"></canvas>
+                </div>
+            </div>
+            <input type="file" id="fileInput" name="file" accept="image/*">
+        </main>
+
+    </div>
+    <!--Scripts para Bootstrap-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!--OpenCV-->
+    <script async="" src="js/opencv.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/script.js" onload="onOpenCvReady();" onload="onOpenCvError();"></script>
+</body>
+
+</html>
