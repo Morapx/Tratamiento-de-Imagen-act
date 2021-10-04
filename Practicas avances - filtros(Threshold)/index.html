@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="UTF-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OpenCV Tratamiento de la imagen</title> 
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/custom.css">
+    </head>
+    <body>
+
+        <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OpenCV Con JavaScript</a>
+            <h1 class="col-md-10">Ejercicio 3 - Proceso Básico de Imagen</h1>
+
+        </nav>
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <nav class="coll-md-2 d-done d-md-block bg-lighet sidebar" >
+                    <div class="sidebar-sticky">
+                        <ul id="menu" class="nav flex-column">
+                            <li class = "nav-item"><a class="nav-link" href= "index.html">Ejemplo 1. Carga Básica de Imagen </a></li>
+                            <li class = "nav-item"><a class="nav-link" href= "index2.html">Ejemplo 2. Carga Básica de WebCam </a></li>
+                            <li class = "nav-item"><a class="nav-link" href= "index3.html">Ejemplo 3. Proceso Básico de Imagen </a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-40">
+                <div class="row">
+                    <div class="col">
+                        <div id="status" class="alert alert-primary" role="alert">
+                            <img src="img/ajax-loader.gif" /> Cargando OpenCV
+                        </div>
+                    </div>
+                </div>
+
+                <div id="main_process" class="row">
+                    <div class="col">
+                        <span class="step">1</span>
+                        <input type="file" id="fileInput" name="file" accept="image/*0">
+                        <br><br>
+                        <span class="step">2</span>
+                        <select class="form-control" id="filter">
+                            <option value="0">Selecciona un filtro</option>
+                            <option value="1">Threshold</option>
+                        </select>
+                        <br>
+
+                        <div id="step3_o1" class="step_blocks hide">
+                            <span class="step">3</span>
+                            Threshold: <span id="value_sel">100</span>
+                            <input type="range" class="custom-range" min="0" max="255" value="100" id="value">
+                        </div>
+
+                        <a href="#" class="btn btn-primary" style="display: none;" id="cv_start">Procesar Imagen</a>
+                    </div>
+
+                    <div class="col">
+                        Imagen Original<br>
+                        <img id="imageSrc" class="small" alt="imagen">
+                    </div>
+
+                    <div class="col">
+                        Resultado<br>
+                        <canvas id="canvasOutput" class="small" height="300px"></canvas>
+                    </div>
+                </div>
+
+            </main>
+
+        </div>
+
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src= "js/common.js"></script>
+
+        <script async="" src="js/opencv.js" type="text/javascript" onload="onOpenCvReady();" onload="onOpenCvError();"></script>
+
+        <script type="text/javascript">
+
+            let imgElement = document.getElementById('imageSrc');
+            let inputElement = document.getElementById('fileInput');
+
+            inputElement.addEventListener('change', (e) =>{
+                imgElement.src = URL.createObjectURL(e.target.files[0]);
+            }, false);
+
+            function process() {
+                let mat = cv.imread(imgElement)
+                let mat_result = new cv.Mat();
+                let filter = parseInt($("#filter").val());
+
+                switch(filter){
+                    case 1:{
+                        let value = parseInt($("#value").val());
+                        cv.threshold(mat, mat_result, value, 255, cv.THRESH_BINARY);
+                    break;}
+                }
+
+                cv.imshow('canvasOutput', mat_result);
+                mat.delete();
+                mat_result.delete();
+            };
+
+            function onOpenCvReady() {
+                document.getElementById('status').innerHTML = '<b>OpenCV.js está listo </b>';
+                $("#cv_start").show();
+                $("#main_process").show();
+                $("#cv_start").click(process);
+                $("#filter").change(function(){
+                    let filter= parseInt($("#filter").val());
+                    $(".step_blocks").hide();
+                    $("#step3_o"+filter).show();
+                });
+                $("#value").change(function(){
+                    $("value_sel").html($(this).val());
+                    process();
+                })
+            }
+
+            function onOpenCvError() {
+                let element = document.getElementById('status');
+                element.setAttribute('class', 'err');
+                element.innerHTML = "Hubo un error en la carga de OpenCv.js";
+            }
+
+        </script>
+
+    </body>
+</html>
