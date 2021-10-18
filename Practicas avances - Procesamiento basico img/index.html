@@ -15,7 +15,7 @@
 <body>
     <nav class="navbar navbar-dark fixed-top flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">OpenCV Con JavaScript</a>
-        <h1 class="col-md-10">Ejemplo 3 - Carga Seleccion de Imagen</h1>
+        <h1 class="col-md-10">Ejemplo 3 - Procesamiento Digital Basico</h1>
     </nav>
 
     <div class="container-fluid">
@@ -26,7 +26,7 @@
                     <ul id="menu" class="nav flex.column">
                         <li class="nav-item"><a class="nav-link" href="../CargaBasicaImagen/index.html">Ejemplo 1. Carga Básica de Imagen</a></li>
                         <li class="nav-item"><a class="nav-link" href="../CargaBasicaWebcam/index.html">Ejemplo 2. Carga Básica de WebCam</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../CargaSeleccionFiltro/index.html">Ejemplo 3. Carga Seleccion Filtro</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../ProcesamientoDigitalBasico/index.html">Ejemplo 3. Procesamiento Digital Basico</a></li>
                     </ul>
                 </div>
             </nav>
@@ -41,27 +41,49 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div id="main_process" class="row">
 
                 <div class="col">
+                    <span class="step">1</span>
                     <input type="file" id="fileInput" name="file" accept="image/*">
+                    <br><br>
+                    <span class="step">2</span>
                     <select class="form-control" id="filter">
-                        <option value="0">Choose a filter</option>
+                        <option value="0">Selecciona un filtro</option>
                         <option value="1">Threshold</option>
                         <option value="2">Gaussian Blur</option>
                         <option value="3">Canny</option>
                         <option value="4">Equalize Histogram</option>
                     </select>
-                    <a href="#" class="btn btn-primary" style="display: none;" id="cv_start">Process Image</a>
+                    <br>
+                    <div id="step3_1" class="step_blocks hide">
+                        <span class="step">3</span> Threshold: <span id="value_sel">100</span>
+                        <input type="range" class="custom-range" min="0" max="255" value="100" id="value">
+                    </div>
+
+                    <div id="step3_2" class="step_blocks hide">
+                        <span class="step">3</span> Kernel Filter Size: <span id="value_2_sel">3x3</span>
+                        <input type="range" class="custom-range" min="1" max="55" value="3" step="2" id="value_2">
+                    </div>
+
+                    <div id="step3_3" class="step_blocks hide">
+                        <span class="step">3</span> <br>
+                        <br> Threshol 1: <span id="value_3_1_sel">100</span>
+                        <input type="range" class="custom-range" min="0" max="255" value="100" id="value_3_1">
+                        <br> Threshol 2: <span id="value_3_2_sel">150</span>
+                        <input type="range" class="custom-range" min="0" max="255" value="100" id="value_3_2"> Aperture Size: <span id="value_3_sel">3</span>
+                        <input type="range" class="custom-range" min="3" max="7" value="3" step="2" id="value_3">
+                    </div>
+                    <a href="#" class="btn btn-primary" style="display: none;" id="cv_start">Procesar Imagen</a>
                 </div>
 
                 <div class="col">
-                    <p>Input image</p>
+                    Imagen Original <br>
                     <img id="imgSrc" src="img/gray.png" alt="Sin imagen" class="small">
                 </div>
 
                 <div class="col">
-                    <p>Result image</p>
+                    Resultado <br>
                     <canvas id="canvasOutput" class="small" height="300px"></canvas>
                 </div>
 
