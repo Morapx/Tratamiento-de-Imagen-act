@@ -38,6 +38,11 @@ const process = () => {
                 cv.equalizeHist(mat, mat_result);
                 break;
             }
+        case 5:
+            {
+                cv.cvtColor(mat, mat_result, cv.COLOR_BGR2GRAY);
+                break;
+            }
     }
     cv.imshow('canvasOutput', mat_result);
     mat.delete();
